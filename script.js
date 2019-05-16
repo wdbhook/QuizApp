@@ -50,11 +50,38 @@ const quizAnswers = [
     correctAnswer: 'Missy',
 },
 ]
+
+const score = 0;
+
 function handleStart() {
-    //when user clicks button, the first question of the quiz loads with the footer at bottom showing which question they are on and how many correct
+    //when user clicks button, removes the start page, then renders the question on the page with a footer showing which question and score
     $('.js-start-quiz').on('click', function(event) {
         $('#start-page').remove();
+        renderQuestion(0);
     })
+}
+
+function renderQuestion(index) {
+    //renders the question on the page with the footer at the bottom showing which question and score
+    console.log("renderQuestion");
+    $('main').html(
+        `<section id='question'>
+        <form>
+          <fieldset>
+            <legend>${quizAnswers[index].question}</legend>
+            <label><input type="radio">${quizAnswers[index].answers[0]}</label>
+            <label><input type="radio">${quizAnswers[index].answers[1]}</label>
+            <label><input type="radio">${quizAnswers[index].answers[2]}</label>
+            <label><input type="radio">${quizAnswers[index].answers[3]}</label>
+          </fieldset>
+          <button class="js-question-submit" type="submit">Submit</button>
+        </form>
+      </section>
+      <footer>
+        <h2>Question: ${index}/10</h2>
+        <h2>Score: ${score}</h2>
+      </footer>`
+    );
 }
 
 function handleAnswer() {
