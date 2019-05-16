@@ -1,0 +1,19 @@
+#start-page, #question, #correct, #incorrect, #results{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 200px;
+  border: 1px black solid;
+  padding: 30px;
+}
+
+fieldset {
+  display: flex;
+  flex-direction: column;
+  border: none;
+}
+
+footer {
+  display: flex;
+  justify-content: space-around;
+}
