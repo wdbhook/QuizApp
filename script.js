@@ -37,7 +37,7 @@ const quizAnswers = [
 {
     question: 'What is Clara Oswald\'s profession?',
     answers: [ 'Med student/Doctor', 'Shop girl', 'Kiss-o-gram', 'Nanny/Teacher',],
-    correctAnswer: '',
+    correctAnswer: 'Nanny/Teacher',
 },
 {
     question: 'What is the original name of \"Me?\"',
@@ -51,12 +51,12 @@ const quizAnswers = [
 },
 ]
 
-const score = 0;
+let score = 0;
 
-const questionNumber = 1;
+//let questionNumber = 1;
 
 function handleStart() {
-    //when user clicks button, removes the start page, then renders the question on the page with a footer showing which question and score
+    //when user clicks button, removes the start page, then renders the question on the page with a header showing which question and score
     $('.js-start-quiz').on('click', function(event) {
         $('#start-page').remove();
         renderQuestion(0);
@@ -64,38 +64,73 @@ function handleStart() {
 }
 
 function renderQuestion(index) {
-    //renders the question on the page with the footer at the bottom showing which question and score
+    //renders the question on the page with the header at the top showing which question and score
     $('main').html(
         `<header>
-            <h2>Question: ${index}/10</h2>
+            <h2>Question: ${index+1}/10</h2>
             <h2>Score: ${score}</h2>
         </header>
         <section id='question'>
         <form>
           <fieldset>
             <legend>${quizAnswers[index].question}</legend>
-            <label><input type="radio" name="answer">${quizAnswers[index].answers[0]}</label>
-            <label><input type="radio" name="answer">${quizAnswers[index].answers[1]}</label>
-            <label><input type="radio" name="answer">${quizAnswers[index].answers[2]}</label>
-            <label><input type="radio" name="answer">${quizAnswers[index].answers[3]}</label>
+            <label><input type="radio" name="answer" value="${quizAnswers[index].answers[0]}">${quizAnswers[index].answers[0]}</label>
+            <label><input type="radio" name="answer" value="${quizAnswers[index].answers[1]}">${quizAnswers[index].answers[1]}</label>
+            <label><input type="radio" name="answer" value="${quizAnswers[index].answers[2]}">${quizAnswers[index].answers[2]}</label>
+            <label><input type="radio" name="answer" value="${quizAnswers[index].answers[3]}">${quizAnswers[index].answers[3]}</label>
             <button class="js-question-submit" type="submit">Submit</button>
           </fieldset>
         </form>
       </section>`
     );
-    handleAnswer();
+    handleAnswer(index);
 }
 
-function handleAnswer() {
-    //when user selects an answer and submits, removes the question and displays a page showing if it was correct or not. Footer updates.
+function handleAnswer(index) {
+    //determines if the user's answer is correct or not
     $('form').on('submit', function(event) {
         event.preventDefault();
-        console.log($("input:checked").val());
+        let submission = $("input:checked").val();
+        if(submission === quizAnswers[index].correctAnswer) {
+            renderCorrect(index);
+        }
+        else renderIncorrect(index);
     });
 }
 
-function handleNext() {
+function renderCorrect(index) {
+    //removes the question and displays the "correct" page, updates header
+    score++;
+    $('#question').remove();
+    $('main').html(
+        `<header>
+            <h2>Question: ${index+1}/10</h2>
+            <h2>Score: ${score}</h2>
+        </header>
+            <img src="correct.gif" alt="11th Doctor gives thumbs up" class="correct">
+            <h1>Correct!</h1>`
+    )
+    handleNext(index);
+}
+
+function renderIncorrect(index) {
+    //removes the question and displays the "incorrect" page, updates header
+    console.log('incorrect');
+    $('#question').remove();
+    $('main').html(
+        `<header>
+            <h2>Question: ${index+1}/10</h2>
+            <h2>Score: ${score}</h2>
+        </header>
+            <img src="incorrect.gif" alt="10th Doctor shakes his head" class="incorrect">
+            <h1>Incorrect!  This correct answer is ${quizAnswers[index].correctAnswer}</h1>`
+        )
+    
+}
+
+function handleNext(index) {
     //loads the next question of the quiz
+    renderQuestion(index+1);
 }
 
 function handleResults() {
