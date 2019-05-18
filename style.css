@@ -3,8 +3,10 @@
   flex-direction: column;
   align-items: center;
   margin: 200px;
-  border: 1px black solid;
+  border-radius: 25px;
   padding: 30px;
+  background: rgba(255, 255, 255, .7);
+  width: 40%;
 }
 
 fieldset {
@@ -13,7 +15,24 @@ fieldset {
   border: none;
 }
 
-footer {
+header {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
+}
+
+body {
+  background: #99C5EC;
+  color: #34515E;;
+}
+
+button {
+  color: #34515E;
+}
+
+#background-image{
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
 }

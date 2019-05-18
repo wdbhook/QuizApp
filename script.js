@@ -1,6 +1,6 @@
 const quizAnswers = [
 {
-    question: 'What is the name of the planet the Slitheen race come from?',
+    question: 'What is the name of the planet the Slitheen come from?',
     answers: [ 'Skaro', 'Raxacoricofallapatorius', 'Midnight', 'Clom',],
     correctAnswer: 'Raxacoricofallapatorius',
 },
@@ -53,6 +53,8 @@ const quizAnswers = [
 
 const score = 0;
 
+const questionNumber = 1;
+
 function handleStart() {
     //when user clicks button, removes the start page, then renders the question on the page with a footer showing which question and score
     $('.js-start-quiz').on('click', function(event) {
@@ -63,29 +65,33 @@ function handleStart() {
 
 function renderQuestion(index) {
     //renders the question on the page with the footer at the bottom showing which question and score
-    console.log("renderQuestion");
     $('main').html(
-        `<section id='question'>
+        `<header>
+            <h2>Question: ${index}/10</h2>
+            <h2>Score: ${score}</h2>
+        </header>
+        <section id='question'>
         <form>
           <fieldset>
             <legend>${quizAnswers[index].question}</legend>
-            <label><input type="radio">${quizAnswers[index].answers[0]}</label>
-            <label><input type="radio">${quizAnswers[index].answers[1]}</label>
-            <label><input type="radio">${quizAnswers[index].answers[2]}</label>
-            <label><input type="radio">${quizAnswers[index].answers[3]}</label>
+            <label><input type="radio" name="answer">${quizAnswers[index].answers[0]}</label>
+            <label><input type="radio" name="answer">${quizAnswers[index].answers[1]}</label>
+            <label><input type="radio" name="answer">${quizAnswers[index].answers[2]}</label>
+            <label><input type="radio" name="answer">${quizAnswers[index].answers[3]}</label>
+            <button class="js-question-submit" type="submit">Submit</button>
           </fieldset>
-          <button class="js-question-submit" type="submit">Submit</button>
         </form>
-      </section>
-      <footer>
-        <h2>Question: ${index}/10</h2>
-        <h2>Score: ${score}</h2>
-      </footer>`
+      </section>`
     );
+    handleAnswer();
 }
 
 function handleAnswer() {
-    //when user selects an answer and submits, displays a page showing if it was correct or not. Footer updates.
+    //when user selects an answer and submits, removes the question and displays a page showing if it was correct or not. Footer updates.
+    $('form').on('click', '.js-question-submit', function(event) {
+        event.preventDefault();
+        console.log($("input:checked").val());
+    });
 }
 
 function handleNext() {
