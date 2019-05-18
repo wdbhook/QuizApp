@@ -88,7 +88,7 @@ function renderQuestion(index) {
 
 function handleAnswer() {
     //when user selects an answer and submits, removes the question and displays a page showing if it was correct or not. Footer updates.
-    $('form').on('click', '.js-question-submit', function(event) {
+    $('form').on('submit', function(event) {
         event.preventDefault();
         console.log($("input:checked").val());
     });
