@@ -1,4 +1,4 @@
-#start-page, #question, #correct, #incorrect, #results{
+section {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -22,7 +22,8 @@ header {
 
 body {
   background: #99C5EC;
-  color: #34515E;;
+  color: #34515E;
+  font-family: 'Kodchasan', sans-serif;
 }
 
 button {
